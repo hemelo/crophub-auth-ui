@@ -1,0 +1,21 @@
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { LoginByPasswordComponent } from './components/login-by-password/login-by-password.component';
+import { LoginByDeviceComponent } from './components/login-by-device/login-by-device.component';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: LoginByPasswordComponent,
+  },
+  {
+    path: 'by-device',
+    component: LoginByDeviceComponent,
+  },
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule],
+})
+export class LoginRoutingModule {}
