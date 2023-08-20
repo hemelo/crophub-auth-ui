@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { GenericErrorPageComponent } from './core/components/generic-error-page/generic-error-page.component';
 
 const routes: Routes = [
   {
@@ -22,8 +23,12 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'error',
+    component: GenericErrorPageComponent,
+  },
+  {
     path: '**',
-    redirectTo: '/login',
+    redirectTo: 'login',
   },
 ];
 

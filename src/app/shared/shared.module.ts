@@ -10,8 +10,12 @@ import { CaptchaDialogComponent } from './components/captcha-dialog/captcha-dial
 import { SocialLoginButtonsComponent } from './components/social-login-buttons/social-login-buttons.component';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ParamsEffects } from './store/params/params.effects';
 import { paramsReducer } from './store/params/params.reducer';
+import { NgxLoadingButtonsModule } from 'ngx-loading-buttons';
+import { loadingsReducer } from './store/loading/loading.reducer';
+import { LoadingsEffects } from './store/loading/loading.effects';
 
 @NgModule({
   declarations: [
@@ -23,14 +27,18 @@ import { paramsReducer } from './store/params/params.reducer';
     CommonModule,
     MatButtonModule,
     MatIconModule,
+    NgxLoadingButtonsModule,
     StoreModule.forFeature('params', paramsReducer),
+    StoreModule.forFeature('loadings', loadingsReducer),
     EffectsModule.forFeature([ParamsEffects]),
+    EffectsModule.forFeature([LoadingsEffects]),
   ],
   exports: [
     ReactiveFormsModule,
     MatButtonModule,
     MatFormFieldModule,
     MatIconModule,
+    NgxLoadingButtonsModule,
     MatInputModule,
     FormTitleComponent,
     SocialLoginButtonsComponent,
