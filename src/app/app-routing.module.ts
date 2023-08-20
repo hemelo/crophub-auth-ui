@@ -21,6 +21,10 @@ const routes: Routes = [
         (m) => m.PasswordModule
       ),
   },
+  {
+    path: '**',
+    redirectTo: '/login',
+  },
 ];
 
 @NgModule({
