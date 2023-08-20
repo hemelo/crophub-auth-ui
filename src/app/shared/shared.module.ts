@@ -8,6 +8,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FormTitleComponent } from './components/form-title/form-title.component';
 import { CaptchaDialogComponent } from './components/captcha-dialog/captcha-dialog.component';
 import { SocialLoginButtonsComponent } from './components/social-login-buttons/social-login-buttons.component';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { ParamsEffects } from './store/params/params.effects';
+import { paramsReducer } from './store/params/params.reducer';
 
 @NgModule({
   declarations: [
@@ -15,7 +19,13 @@ import { SocialLoginButtonsComponent } from './components/social-login-buttons/s
     CaptchaDialogComponent,
     SocialLoginButtonsComponent,
   ],
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    MatIconModule,
+    StoreModule.forFeature('params', paramsReducer),
+    EffectsModule.forFeature([ParamsEffects]),
+  ],
   exports: [
     ReactiveFormsModule,
     MatButtonModule,
