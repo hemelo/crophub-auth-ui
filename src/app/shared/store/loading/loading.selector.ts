@@ -14,7 +14,7 @@ export const selectAnyLoading = createSelector(
   (loadingTypes) => loadingTypes.length > 0
 );
 
-export const isLoading = (loadingType: string) =>
+export const selectLoading = (loadingType: string) =>
   createSelector(selectLoadingsState, (state: LoadingsState) =>
     state.loadingTypes.includes(loadingType)
   );
