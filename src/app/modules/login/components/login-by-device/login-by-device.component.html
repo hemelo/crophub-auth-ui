@@ -1,1 +1,23 @@
-<p>login-by-device works!</p>
+<div class="relative w-screen h-screen overflow-hidden">
+  <div class="w-full h-full grid grid-cols-12 gap-2">
+    <div class="col-span-4 px-5 flex justify-center items-center">
+      <form class="-mt-5" [formGroup]="loginGroup">
+        <app-form-title>Sign In</app-form-title>
+        <mat-form-field class="w-full">
+          <input matInput type="tel" formControlName="phone" />
+          <mat-label>Phone number</mat-label>
+        </mat-form-field>
+        <mat-form-field class="w-full">
+          <input matInput type="password" formControlName="password" />
+          <mat-label>Password</mat-label>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="w-full">
+          <mat-icon>login</mat-icon>
+          Log in
+        </button>
+
+        <app-social-login-buttons action="login"></app-social-login-buttons>
+      </form>
+    </div>
+  </div>
+</div>

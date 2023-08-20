@@ -1,0 +1,18 @@
+<div class="relative w-screen h-screen overflow-hidden">
+  <div class="w-full h-full grid grid-cols-12 gap-2">
+    <div class="col-span-4 px-5 flex justify-center items-center">
+      <form class="-mt-12" [formGroup]="verifyGroup">
+        <app-form-title>Welcome</app-form-title>
+        <p class="mb-5">We sent a code to <b>hmelo2509@gmail.com</b></p>
+        <mat-form-field class="w-full">
+          <input matInput type="text" formControlName="code" />
+          <mat-label>Code</mat-label>
+        </mat-form-field>
+        <button mat-raised-button color="primary" class="w-full">
+          <mat-icon>fingerprint</mat-icon>
+          Verify
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
