@@ -71,6 +71,11 @@ $typography-config: mat.define-typography-config(
   $button: mat.define-typography-level(14px, 14px, 500),
 );
 
+:root {
+  --mdc-dialog-subhead-size: 1.35rem;
+  --mdc-dialog-subhead-weight: 600;
+}
+
 html,
 body {
   @apply h-full;
@@ -78,4 +83,14 @@ body {
 body {
   font-family: 'Poppins', sans-serif;
   @apply relative w-screen bg-white min-h-screen overflow-hidden m-0;
+}
+
+.mat-mdc-dialog-container {
+  .mdc-dialog__title {
+    @apply text-2xl font-bold;
+  }
+
+  .mdc-dialog__content {
+    @apply py-0 px-6 #{!important};
+  }
 }

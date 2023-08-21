@@ -1,1 +1,14 @@
-<p>captcha-dialog works!</p>
+<h1 mat-dialog-title>Captcha validation</h1>
+<div mat-dialog-content>
+  <form class="inline-flex items-center justify-center gap-2 pt-2">
+    <mat-form-field cdkFocusInitial>
+      <input matInput [formControl]="captchaInput" />
+      <mat-label>Captcha</mat-label>
+    </mat-form-field>
+    <img [src]="(captcha$ | async)?.imageData" alt="Captcha" />
+  </form>
+</div>
+<div mat-dialog-actions align="end">
+  <button mat-button [mat-dialog-close]="null">Cancel</button>
+  <button mat-button (click)="validateCaptcha()">Verify</button>
+</div>

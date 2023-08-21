@@ -8,9 +8,13 @@ import { ActivatedRoute } from '@angular/router';
 import {
   Observable,
   catchError,
+  debounceTime,
   delay,
+  distinctUntilChanged,
   first,
   firstValueFrom,
+  of,
+  switchMap,
   take,
   throwError,
 } from 'rxjs';
@@ -32,6 +36,8 @@ import {
   selectLoadingsState,
 } from 'src/app/shared/store/loading/loading.selector';
 import { NavigationService } from 'src/app/core/services/navigation.service';
+import { MatDialog } from '@angular/material/dialog';
+import { CaptchaDialogComponent } from 'src/app/shared/components/captcha-dialog/captcha-dialog.component';
 
 @Component({
   selector: 'app-login-by-password',
@@ -44,6 +50,10 @@ export class LoginByPasswordComponent implements OnInit {
     password: ['', [Validators.required]],
   });
 
+  captchaGroup = this.fb.group({
+    captcha: ['', [Validators.required]],
+  });
+
   private nonceId$: Observable<string | null>;
   private target$: Observable<string | null>;
   public loading$: Observable<boolean>;
@@ -54,7 +64,8 @@ export class LoginByPasswordComponent implements OnInit {
     private loginService: LoginService,
     private navigationService: NavigationService,
     private store: Store,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog
   ) {
     this.nonceId$ = this.store.select(selectNonceId);
     this.target$ = this.store.select(selectTarget);
@@ -94,7 +105,21 @@ export class LoginByPasswordComponent implements OnInit {
       return;
     }
 
-    const value = this.loginGroup.getRawValue() as Required<LoginDto>;
+    if (!this.captchaGroup.valid) {
+      this.captchaGroup.patchValue({
+        captcha: await firstValueFrom(this.getCaptchaInput()),
+      });
+
+      if (!this.captchaGroup.valid) {
+        this.toastService.add('Captcha is required, try again.');
+        return;
+      }
+    }
+
+    const value = {
+      ...this.loginGroup.getRawValue(),
+      ...this.captchaGroup.getRawValue(),
+    } as Required<LoginDto>;
     const nonceId = await firstValueFrom(this.nonceId$);
 
     if (!nonceId) {
@@ -157,5 +182,18 @@ export class LoginByPasswordComponent implements OnInit {
   private resetForm() {
     this.loginGroup.get('username')?.setErrors(null);
     this.loginGroup.get('password')?.setErrors(null);
+    this.captchaGroup.reset();
+  }
+
+  /**
+   * Open captcha dialog to get captcha image and get user input
+   */
+  getCaptchaInput() {
+    return of(true).pipe(
+      delay(300),
+      switchMap(() => {
+        return this.dialog.open(CaptchaDialogComponent, {}).afterClosed();
+      })
+    );
   }
 }

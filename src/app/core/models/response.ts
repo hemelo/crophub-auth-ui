@@ -4,3 +4,9 @@ export type AuthApiResponse<T = undefined> = {
   success: boolean;
   status: number;
 };
+
+export type Captcha = {
+  captchaId: string;
+  code: string;
+  imageData: string;
+};

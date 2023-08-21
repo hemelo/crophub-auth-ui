@@ -5,6 +5,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FormTitleComponent } from './components/form-title/form-title.component';
 import { CaptchaDialogComponent } from './components/captcha-dialog/captcha-dialog.component';
 import { SocialLoginButtonsComponent } from './components/social-login-buttons/social-login-buttons.component';
@@ -24,9 +25,13 @@ import { LoadingsEffects } from './store/loading/loading.effects';
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     MatButtonModule,
+    MatFormFieldModule,
     MatIconModule,
+    MatInputModule,
     NgxLoadingButtonsModule,
+    MatDialogModule,
     StoreModule.forFeature('params', paramsReducer),
     StoreModule.forFeature('loadings', loadingsReducer),
     EffectsModule.forFeature([ParamsEffects]),
